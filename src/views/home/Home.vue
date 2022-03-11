@@ -1,7 +1,8 @@
 <template>
   <div>
     <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" />
-    <calendar :animes="animes"></calendar>
+    <!-- <calendar :animes="bangumis"></calendar> -->
+    <bangumi-item-list :bangumis="bangumis"></bangumi-item-list>
   </div>
 </template>
 <script> 
@@ -11,6 +12,7 @@
   import { Search } from 'vant';
 
   import Calendar from './childComps/Calendar'
+  import BangumiItemList from 'components/content/bangumis/BangumiItemList'
   import {getCalendar} from 'network/home'
 
   export default {
@@ -21,11 +23,12 @@
       [VanImage.name]: VanImage,
       [Search.name]: Search,
       Calendar,
+      BangumiItemList,
     },
     data () {
       return {
         value: '',
-        animes: [],
+        bangumis: [],
         today: 0,
       }
     },
@@ -38,8 +41,8 @@
           // console.log(res);
           // 保存请求过来的数据到 data 中
           // 用一个计算属性计算今天是周几
-          this.animes = res.data[this.today].items;
-          // console.log(this.animes);
+          this.bangumis = res.data[this.today].items;
+          // console.log(this.bangumis);
         })
       }
     }
