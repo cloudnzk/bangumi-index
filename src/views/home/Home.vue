@@ -1,20 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="首页">
-      <template #left>
-        <van-icon name="replay" size="18" />
-      </template>
-      <template #right>
-        <van-icon name="search" size="18" />
-      </template>
-    </van-nav-bar>
-    
-    <!-- 轮播图组件 -->
-    <van-swipe :autoplay="3000" class="my-swipe">
-      <van-swipe-item v-for="(image, index) in images" :key="index">
-        <img v-lazy="image" />
-      </van-swipe-item>
-    </van-swipe>
+    <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" />
   </div>
 </template>
 <script> 
@@ -22,6 +8,9 @@
   import { Icon } from 'vant';
   import { Image as VanImage } from 'vant';
   import { Swipe, SwipeItem } from 'vant';
+  import { Search } from 'vant';
+
+  import {getCalendar} from 'network/home'
 
   export default {
     name: "Home",
@@ -31,15 +20,19 @@
       [VanImage.name]: VanImage,
       [Swipe.name]: Swipe,
       [SwipeItem.name]: SwipeItem,
+      [Search.name]: Search,
     },
     data () {
       return {
-        images: [
-          'https://img01.yzcdn.cn/vant/apple-1.jpg',
-          'https://img01.yzcdn.cn/vant/apple-2.jpg',
-        ],
+        value: ''
       }
     },
+    created(){
+      getCalendar().then(res => {
+        console.log(res);
+      })
+    },
+    
   }
 </script>
 <style scoped>
