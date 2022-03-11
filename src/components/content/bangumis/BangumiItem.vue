@@ -1,6 +1,6 @@
 <template>
   <div class="bangumi-item">
-      <van-image :src="bangumiItem.images.large" height="200px"/>
+      <van-image :src="bangumiItem.images.large"  width="100%"/>
       <!-- <span class="bangumi-title">{{bangumiName(bangumiItem)}}</span>
       <van-icon name="star-o" /> -->
   </div>  

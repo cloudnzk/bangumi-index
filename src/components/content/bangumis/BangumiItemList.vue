@@ -1,8 +1,8 @@
 <template>
   <div>
   <!-- flex 对齐方式 -->
-  <van-row type="flex" justify="space-around" align="center">
-    <van-col span="24" v-for="(item,index) in bangumis" :key="index">
+  <van-row type="flex" justify="space-around">
+    <van-col span="11" v-for="(item,index) in bangumis" :key="index">
       <bangumi-item :bangumi-item="item"></bangumi-item>
     </van-col>
   </van-row>
