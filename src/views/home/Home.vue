@@ -1,15 +1,15 @@
 <template>
   <div>
-    <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" />
+    <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#4fc08d" />
+    <van-dropdown-menu active-color="#1989fa">
+      <van-dropdown-item v-model="value1" :options="option1" />
+      <van-dropdown-item v-model="value2" :options="option2" />
+    </van-dropdown-menu>
     <!-- <calendar :animes="bangumis"></calendar> -->
     <bangumi-item-list :bangumis="bangumis"></bangumi-item-list>
   </div>
 </template>
 <script> 
-  import { NavBar } from 'vant';
-  import { Icon } from 'vant';
-  import { Image as VanImage } from 'vant';
-  import { Search } from 'vant';
 
   // import Calendar from './childComps/Calendar'
   import BangumiItemList from 'components/content/bangumis/BangumiItemList'
@@ -18,10 +18,6 @@
   export default {
     name: "Home",
     components: {
-      [NavBar.name]: NavBar,
-      [Icon.name]: Icon,
-      [VanImage.name]: VanImage,
-      [Search.name]: Search,
       // Calendar,
       BangumiItemList,
     },
@@ -29,6 +25,18 @@
       return {
         value: '',
         bangumis: [],
+        value1: 0,
+        value2: 'a',
+        option1: [
+          { text: '全部商品', value: 0 },
+          { text: '新款商品', value: 1 },
+          { text: '活动商品', value: 2 },
+        ],
+        option2: [
+          { text: '默认排序', value: 'a' },
+          { text: '好评排序', value: 'b' },
+          { text: '销量排序', value: 'c' },
+        ],
       }
     },
     computed: {
@@ -51,7 +59,10 @@
           this.bangumis = res.data[this.today].items;
           // console.log(this.bangumis);
         })
-      }
+      },
+      onConfirm() {
+        this.$refs.item.toggle();
+      },
     }
   }
 </script>

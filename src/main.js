@@ -2,9 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
 
-// 注册懒加载组件
+import { Image as VanImage } from 'vant';
+import { Icon } from 'vant';
+import { Grid, GridItem } from 'vant';
+import { Col, Row } from 'vant';
+import { Tabbar, TabbarItem } from 'vant';
+import { NavBar } from 'vant';
+import { Search } from 'vant';
 import { Lazyload } from 'vant';
-Vue.use(Lazyload);
+import { DropdownMenu, DropdownItem } from 'vant';
+
+Vue.use(Lazyload).use(VanImage).use(Icon).use(Grid).use(GridItem).
+  use(Col).use(Row).use(Tabbar).use(TabbarItem).use(NavBar).use(Search)
+  .use(DropdownMenu).use(DropdownItem);
 
 Vue.config.productionTip = false
 

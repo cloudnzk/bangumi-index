@@ -1,19 +1,23 @@
 <template>
   <div class="bangumi-item">
-      <van-image :src="bangumiItem.images.large" height="250" width="175"/>
-      <!-- <span class="bangumi-title">{{bangumiName(bangumiItem)}}</span>
-      <van-icon name="star-o" /> -->
+      <van-image :src="bangumiItem.images.large"
+        height="250" 
+        width="100%" 
+        radius="16"
+        show-error
+        show-loading>
+      </van-image>
+      <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
+      <div class="ellipsis">{{bangumiName(bangumiItem)}}</div>
+      <div class="star"><van-icon name="like" size="32" color="#fff" class="star-icon"/></div>
   </div>  
 </template>
 <script>
-  import { Image as VanImage } from 'vant';
-  import { Icon } from 'vant';
 
   export default {
     name: "BangumiItem",
     components: {
-        [VanImage.name]: VanImage,
-        [Icon.name]: Icon,
+
     },
     props:{
       bangumiItem: {
@@ -38,7 +42,27 @@
 </script>
 <style scoped>
   .bangumi-item{
-    margin-bottom: 10px;
-    /* border: 5px solid pink; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 175px;
+    margin-top: 10px;
+  }
+  .ellipsis {
+    white-space: nowrap;
+    /*2.超出的部分隐藏*/
+    overflow: hidden;
+    /*3.文字用省略号替代超出的部分*/
+    text-overflow: ellipsis;
+  }
+  .star {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .star-icon {
+    position: absolute;
+    /* 其实就是一行文字的高度 */
+    bottom: 16px;
+    right: 0;
   }
 </style>

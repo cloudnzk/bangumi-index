@@ -10,17 +10,12 @@
   </div>
 </template>
 <script>
-  import { Col, Row } from 'vant';
   import BangumiItem from './BangumiItem.vue'
-  import { Grid, GridItem } from 'vant';
+
   export default {
     name: "BangumiItemList",
     components: {
         BangumiItem,
-        [Col.name]: Col,
-        [Row.name]: Row,
-        [Grid.name]: Grid,
-        [GridItem.name]: GridItem,
     },
     props:{
       bangumis: {

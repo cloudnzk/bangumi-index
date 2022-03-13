@@ -6,11 +6,7 @@
   </van-tabbar>
 </template>
 <script>
-  /**
-   * 局部注册vant的Tabbar组件
-   */
-  import { Tabbar, TabbarItem } from 'vant';
-  
+
   export default {
     name: "MainTabbar",
     data () {
@@ -19,8 +15,6 @@
       }
     },
     components: {
-      [Tabbar.name]: Tabbar,
-      [TabbarItem.name]: TabbarItem,
     }
   }
 </script>
