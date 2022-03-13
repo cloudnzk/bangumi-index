@@ -11,7 +11,7 @@
   import { Image as VanImage } from 'vant';
   import { Search } from 'vant';
 
-  import Calendar from './childComps/Calendar'
+  // import Calendar from './childComps/Calendar'
   import BangumiItemList from 'components/content/bangumis/BangumiItemList'
   import {getCalendar} from 'network/home'
 
@@ -22,14 +22,21 @@
       [Icon.name]: Icon,
       [VanImage.name]: VanImage,
       [Search.name]: Search,
-      Calendar,
+      // Calendar,
       BangumiItemList,
     },
     data () {
       return {
         value: '',
         bangumis: [],
-        today: 0,
+      }
+    },
+    computed: {
+      // 返回今天周几
+      today(){
+        let d = new Date().getDay()
+        if(d === 0) return 6;
+        else  return d - 1;
       }
     },
     created(){

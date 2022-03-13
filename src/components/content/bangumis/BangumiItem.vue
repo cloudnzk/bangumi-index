@@ -1,6 +1,6 @@
 <template>
   <div class="bangumi-item">
-      <van-image :src="bangumiItem.images.large"  width="100%"/>
+      <van-image :src="bangumiItem.images.large" height="250" width="175"/>
       <!-- <span class="bangumi-title">{{bangumiName(bangumiItem)}}</span>
       <van-icon name="star-o" /> -->
   </div>  
@@ -37,4 +37,8 @@
   }
 </script>
 <style scoped>
+  .bangumi-item{
+    margin-bottom: 10px;
+    /* border: 5px solid pink; */
+  }
 </style>
