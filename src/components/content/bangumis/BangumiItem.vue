@@ -1,14 +1,15 @@
 <template>
   <div class="bangumi-item">
       <van-image :src="bangumiItem.images.large"
-        height="250" 
         width="100%" 
         radius="16"
         show-error
-        show-loading>
+        show-loading
+      >
       </van-image>
+      
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
-      <div class="ellipsis">{{bangumiName(bangumiItem)}}</div>
+      <div class="ellipsis title">{{bangumiName(bangumiItem)}}</div>
       <div class="star"><van-icon name="like" size="32" color="#fff" class="star-icon"/></div>
   </div>  
 </template>
@@ -28,7 +29,9 @@
       }
     },
     data () {
-      return {}
+      return {
+        
+      }
     },
     computed: {
       // 这里用了闭包传值，好好理解下！
@@ -48,6 +51,7 @@
     width: 175px;
     margin-top: 10px;
   }
+  
   .ellipsis {
     white-space: nowrap;
     /*2.超出的部分隐藏*/
@@ -55,14 +59,17 @@
     /*3.文字用省略号替代超出的部分*/
     text-overflow: ellipsis;
   }
+  .title {
+    padding-top: 10px;
+  }
   .star {
     display: flex;
     justify-content: flex-end;
   }
   .star-icon {
     position: absolute;
-    /* 其实就是一行文字的高度 */
-    bottom: 16px;
-    right: 0;
+    /* 其实就是一行文字的高度，再往上偏移 */
+    bottom: 32px;
+    right: 4px;
   }
 </style>
