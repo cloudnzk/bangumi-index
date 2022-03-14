@@ -26,5 +26,8 @@ module.exports = {
             },
         }
     },
+    // 打包后路径错误导致的空白页面问题。
+	publicPath: './',
+	outputDir: process.env.outputDir,
     lintOnSave: false //关闭eslint检查
 }
