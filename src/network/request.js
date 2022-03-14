@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export function request(config){
     const instance = axios.create({
-        baseURL: '/api',
+        // baseURL: '/api',
+        baseURL: 'https://api.bgm.tv/',
         timeout: 10000,
         // 自定义请求头
         // headers: {
