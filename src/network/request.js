@@ -3,7 +3,7 @@ import axios from 'axios'
 export function request(config){
     const instance = axios.create({
         baseURL: '/api',
-        timeout: 5000,
+        timeout: 10000,
         // 自定义请求头
         // headers: {
         //     'X-Requested-With': 'XMLHttpRequest',
