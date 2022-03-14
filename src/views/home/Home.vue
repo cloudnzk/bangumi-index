@@ -3,7 +3,7 @@
     <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#0099FF" />
     <van-dropdown-menu active-color="#1989fa">
       <van-dropdown-item v-model="day" :options="option1" @change="changeDay()" />
-      <van-dropdown-item v-model="order" :options="option2" />
+      <van-dropdown-item v-model="order" :options="option2" @change="changeOrderWay()"/>
     </van-dropdown-menu>
     <bangumi-item-list :bangumis="bangumis"></bangumi-item-list>
   </div>
@@ -51,6 +51,9 @@
       // this.getAllCalendar()
     },
     methods: {
+      /**
+       * 1. 获取数据的方法
+       */
       getCalendar(day=this.day){
         getCalendar().then(res => {
           // 保存请求过来的数据到 data 中
@@ -70,9 +73,16 @@
         })
       },
 
+      /**
+       * 监听事件方法
+       */
       changeDay(){
         if(this.day === 0) this.getAllCalendar()
         else  this.getCalendar()
+      },
+
+      changeOrderWay(){
+        this.bangumis.sort()
       },
       
       // 返回今天周几

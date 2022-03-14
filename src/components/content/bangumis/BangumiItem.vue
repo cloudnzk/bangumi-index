@@ -5,12 +5,23 @@
         radius="16"
         show-error
         show-loading
-      >
+      >  
+      <van-icon name="like" size="32" color="#fff" class="star-icon"/>
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
       <div class="ellipsis title">{{bangumiName(bangumiItem)}}</div>
-      <div class="star"><van-icon name="like" size="32" color="#fff" class="star-icon"/></div>
+      <div class="ranking">
+        <van-rate
+        v-model="value"
+        :size="16"
+        color="#ffd21e"
+        void-icon="star"
+        void-color="#eee"
+        />
+        3分
+      </div>
+      <!-- <div>{{bangumiItem.rating.score}}</div> -->
   </div>  
 </template>
 <script>
@@ -30,7 +41,7 @@
     },
     data () {
       return {
-        
+        value: 3,
       }
     },
     computed: {
@@ -60,7 +71,7 @@
     text-overflow: ellipsis;
   }
   .title {
-    padding-top: 10px;
+    padding: 10px 0 5px 0;
   }
   .star {
     display: flex;
@@ -69,7 +80,13 @@
   .star-icon {
     position: absolute;
     /* 其实就是一行文字的高度，再往上偏移 */
-    bottom: 32px;
+    bottom: 0px;
     right: 4px;
+  }
+  .ranking {
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
+    color: #ffd21e;
   }
 </style>
