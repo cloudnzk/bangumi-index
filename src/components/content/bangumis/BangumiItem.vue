@@ -15,11 +15,11 @@
         <van-rate
         v-model="value"
         :size="16"
-        color="#ffd21e"
+        color="#ffac2d"
         void-icon="star"
         void-color="#eee"
-        />
-        3分
+        class="score" />
+        {{bangumiItem.score}}分
       </div>
       <!-- <div>{{bangumiItem.rating.score}}</div> -->
   </div>  
@@ -51,6 +51,11 @@
           return item.name_cn.length === 0 ? item.name : item.name_cn
         }
       },
+      // bangumiScore(){
+      //   return function(item){
+      //     return item.rating.score != null ? item.rating.score : 0
+      //   }
+      // }
     },
   }
 </script>
@@ -83,10 +88,13 @@
     bottom: 0px;
     right: 4px;
   }
+  .score {
+    margin-right: 10px;
+  }
   .ranking {
     /* position: absolute;
     bottom: 0;
     left: 0; */
-    color: #ffd21e;
+    color: #ffac2d;
   }
 </style>

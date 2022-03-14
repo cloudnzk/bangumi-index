@@ -2,16 +2,16 @@
   <div>
     <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#0099FF" />
     <van-dropdown-menu active-color="#1989fa">
-      <van-dropdown-item v-model="day" :options="option1" @change="changeDay()" />
-      <van-dropdown-item v-model="order" :options="option2" @change="changeOrderWay()"/>
+      <van-dropdown-item v-model="currentDay" :options="option1" />
+      <van-dropdown-item v-model="order" :options="option2"/>
     </van-dropdown-menu>
-    <bangumi-item-list :bangumis="bangumis"></bangumi-item-list>
+    <bangumi-item-list :bangumis="showBangumis"></bangumi-item-list>
   </div>
 </template>
 <script> 
 
   import BangumiItemList from 'components/content/bangumis/BangumiItemList'
-  import {getCalendar} from 'network/home'
+  import {getCalendar,Calendar} from 'network/home'
 
   export default {
     name: "Home",
@@ -21,8 +21,12 @@
     data () {
       return {
         value: '',
+        /**
+         * 将周一到周日的都各自保存下来，只用一个数组存会经常读写，影响性能
+         */
         bangumis: [],
-        day: 0,
+        allBangumis: [],
+        currentDay: 0,
         order: 'a',
         option1: [
           { text: '全部', value: 0 },
@@ -42,51 +46,46 @@
       }
     },
     computed: {
-      
+      showBangumis(){
+        if(this.currentDay === 0) return this.allBangumis;
+        else return this.bangumis[this.currentDay - 1];
+      }
     },
     created(){
-      // 显示今天的番组
-      this.day = this.getToday();
+      // 默认显示今天的番组
+      this.currentDay = this.getCurrentDay();
       this.getCalendar();
-      // this.getAllCalendar()
+    },
+    mounted(){
+      this.precessScore();
     },
     methods: {
       /**
        * 1. 获取数据的方法
        */
-      getCalendar(day=this.day){
+      getCalendar(){
         getCalendar().then(res => {
           // 保存请求过来的数据到 data 中
-          this.bangumis = res.data[day - 1].items;
+          // this.bangumis = res.data[this.currentDay].items;
           // console.log(this.bangumis);
-        })
-      },
-
-      getAllCalendar(){
-        getCalendar().then(res => {
-          // 保存请求过来的数据到 data 中
-          this.bangumis = []
-          for(let day of res.data){
-            this.bangumis.push(...day.items)
+          for(let obj of res.data){
+            this.bangumis.push(new Calendar(obj.items))
+            this.allBangumis.push(...obj.items)
           }
-          // console.log(this.bangumis);
         })
       },
-
+    
+      precessScore(){
+        this.bangumis.map(item => {
+          
+        })
+      },
       /**
        * 监听事件方法
        */
-      changeDay(){
-        if(this.day === 0) this.getAllCalendar()
-        else  this.getCalendar()
-      },
-
-      changeOrderWay(){
-        this.bangumis.sort()
-      },
       
       // 返回今天周几
-      getToday(){
+      getCurrentDay(){
         let d = new Date().getDay()
         if(d === 0) return 7;
         else  return d;
