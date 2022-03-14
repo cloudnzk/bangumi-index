@@ -10,7 +10,7 @@
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
-      <div class="ellipsis title">{{bangumiName(bangumiItem)}}</div>
+      <div class="ellipsis title">{{bangumiItem.name}}</div>
       <div class="ranking">
         <van-rate
         v-model="value"
@@ -51,11 +51,6 @@
           return item.name_cn.length === 0 ? item.name : item.name_cn
         }
       },
-      // bangumiScore(){
-      //   return function(item){
-      //     return item.rating.score != null ? item.rating.score : 0
-      //   }
-      // }
     },
   }
 </script>

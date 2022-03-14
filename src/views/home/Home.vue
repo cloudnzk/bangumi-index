@@ -25,6 +25,7 @@
          * 将周一到周日的都各自保存下来，只用一个数组存会经常读写，影响性能
          */
         bangumis: [],
+        sort_bangumis: [],
         allBangumis: [],
         currentDay: 0,
         order: 'a',
@@ -48,7 +49,11 @@
     computed: {
       showBangumis(){
         if(this.currentDay === 0) return this.allBangumis;
-        else return this.bangumis[this.currentDay - 1];
+        else{
+          // return this.bangumis[this.currentDay - 1].sort(this.compScore('score'));
+          // 这里数据还没渲染好，排不了序。
+          return this.sort_bangumis[this.currentDay - 1];
+        }
       }
     },
     created(){
@@ -57,7 +62,7 @@
       this.getCalendar();
     },
     mounted(){
-      this.precessScore();
+      
     },
     methods: {
       /**
@@ -66,24 +71,37 @@
       getCalendar(){
         getCalendar().then(res => {
           // 保存请求过来的数据到 data 中
-          // this.bangumis = res.data[this.currentDay].items;
-          // console.log(this.bangumis);
-          for(let obj of res.data){
-            this.bangumis.push(new Calendar(obj.items))
-            this.allBangumis.push(...obj.items)
+          for(let calendar of res.data){
+            // 用一个map方法处理数组内每个item，抽出要展示的数据，再返回一个列表
+            let items = calendar.items.map(item => {
+              // 重新创建那么多对象对性能不好，试一下就地修改
+              item.name = item.name_cn.length === 0 ? item.name : item.name_cn;
+              item.score = item.rating == null ? 0 : item.rating.score;
+              item.star = item.collection == null ? 0 : item.collection.doing;
+              return item;
+              // return new Calendar(item)
+            })
+            // 数组解构
+            this.allBangumis.push(...items)
+            this.bangumis.push(items)
+            this.sort_bangumis.push(items.sort(this.compScore('score')))
           }
         })
       },
-    
-      precessScore(){
-        this.bangumis.map(item => {
-          
-        })
+      /**
+       * 排序方法
+       */
+      
+      compScore(prop){
+        return function(obj1,obj2){
+          return obj1[prop] - obj2[prop] < 0;
+        }
       },
+
       /**
        * 监听事件方法
        */
-      
+
       // 返回今天周几
       getCurrentDay(){
         let d = new Date().getDay()
