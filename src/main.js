@@ -20,6 +20,7 @@ Vue.use(Lazyload).use(VanImage).use(Icon).use(Grid).use(GridItem).
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
+  /* 把router放到render前面试试 */
   router,
+  render: h => h(App),
 }).$mount('#app')
