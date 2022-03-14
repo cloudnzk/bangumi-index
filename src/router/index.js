@@ -33,7 +33,9 @@ const routes = [
 
 const router = new VueRouter({
     routes,
-    mode: 'history',
+    // 前端项目用history模式，出现问题：
+    // doesn't work properly without JavaScript enabled. Please enable it to continue.
+    // mode: 'history',
 })
 
 export default router
