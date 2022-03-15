@@ -8,7 +8,7 @@
         show-error
         show-loading
       >  
-      <van-icon name="like" size="32" color="#fff" class="star-icon"/>
+      <van-icon name="like" size="32" :badge="bangumiItem.star" color="#fff" class="star-icon"/>
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
@@ -17,6 +17,7 @@
           <van-rate
           v-model="value"
           :size="16"
+          allow-half
           color="#ffac2d"
           void-icon="star"
           void-color="#eee"
@@ -54,6 +55,14 @@
         }
       },
     },
+    created() {
+      this.value = this.bangumiScore()
+    },
+    methods: {
+      bangumiScore(){
+        return this.bangumiItem.score / 2;
+      }
+    }
   }
 </script>
 <style scoped>
@@ -73,8 +82,6 @@
     /*3.文字用省略号替代超出的部分*/
     text-overflow: ellipsis;
   }
-  .desc {
-  }
   .title {
     padding: 10px 0 5px 0;
   }
@@ -86,7 +93,7 @@
     position: absolute;
     /* 其实就是一行文字的高度，再往上偏移 */
     bottom: 0px;
-    right: 4px;
+    right: 14px;
   }
   .score {
     margin-right: 10px;

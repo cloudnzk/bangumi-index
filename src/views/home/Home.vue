@@ -2,7 +2,7 @@
   <div>
     <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#0099FF" />
     <van-dropdown-menu active-color="#1989fa">
-      <van-dropdown-item v-model="currentDay" :options="option1" />
+      <van-dropdown-item v-model="currentDay" :options="option1" @change="resetOrder"/>
       <van-dropdown-item v-model="order" :options="option2"/>
     </van-dropdown-menu>
     <bangumi-item-list :bangumis="orderBangumis"></bangumi-item-list>
@@ -119,7 +119,9 @@
       /**
        * 监听事件方法
        */
-
+      resetOrder(){
+        this.order = 'a'
+      },
       // 返回今天周几
       getCurrentDay(){
         let d = new Date().getDay()
