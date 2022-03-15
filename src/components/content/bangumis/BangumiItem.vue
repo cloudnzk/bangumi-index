@@ -1,8 +1,10 @@
 <template>
   <div class="bangumi-item">
       <van-image :src="bangumiItem.images.large"
-        width="100%" 
+        width="100%"
+        height="250"
         radius="16"
+        fit="cover"
         show-error
         show-loading
       >  
@@ -10,17 +12,17 @@
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
-      <div class="ellipsis title">{{bangumiItem.name}}</div>
-      <div class="ranking">
-        <van-rate
-        v-model="value"
-        :size="16"
-        color="#ffac2d"
-        void-icon="star"
-        void-color="#eee"
-        class="score" />
-        {{bangumiItem.score}}分
-      </div>
+        <div class="ellipsis title">{{bangumiItem.name}}</div>
+        <div class="ranking">
+          <van-rate
+          v-model="value"
+          :size="16"
+          color="#ffac2d"
+          void-icon="star"
+          void-color="#eee"
+          class="score" />
+          {{bangumiItem.score}}分
+        </div>
       <!-- <div>{{bangumiItem.rating.score}}</div> -->
   </div>  
 </template>
@@ -57,8 +59,9 @@
 <style scoped>
   .bangumi-item{
     position: relative;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
+    justify-content: space-between; */
     width: 175px;
     margin-top: 10px;
   }
@@ -69,6 +72,8 @@
     overflow: hidden;
     /*3.文字用省略号替代超出的部分*/
     text-overflow: ellipsis;
+  }
+  .desc {
   }
   .title {
     padding: 10px 0 5px 0;

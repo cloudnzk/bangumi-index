@@ -5,13 +5,15 @@
       <van-dropdown-item v-model="currentDay" :options="option1" />
       <van-dropdown-item v-model="order" :options="option2"/>
     </van-dropdown-menu>
-    <bangumi-item-list :bangumis="showBangumis"></bangumi-item-list>
+    <bangumi-item-list :bangumis="orderBangumis"></bangumi-item-list>
   </div>
 </template>
 <script> 
 
   import BangumiItemList from 'components/content/bangumis/BangumiItemList'
   import {getCalendar,Calendar} from 'network/home'
+
+  import _ from 'lodash'
 
   export default {
     name: "Home",
@@ -25,7 +27,6 @@
          * 将周一到周日的都各自保存下来，只用一个数组存会经常读写，影响性能
          */
         bangumis: [],
-        sort_bangumis: [],
         allBangumis: [],
         currentDay: 0,
         order: 'a',
@@ -47,12 +48,30 @@
       }
     },
     computed: {
-      showBangumis(){
-        if(this.currentDay === 0) return this.allBangumis;
+      // showBangumis(){
+      //   if(this.currentDay === 0) return this.allBangumis;
+      //   else{
+      //     // return this.bangumis[this.currentDay - 1].sort(this.compScore('score'));
+      //     // 这里数据还没渲染好，排不了序。
+      //     return this.bangumis[this.currentDay - 1];
+      //   }
+      // },
+
+      // 排序最好写在计算属性内
+      orderBangumis(){
+        if(this.currentDay === 0){
+          if(this.order === 'a')  return this.allBangumis;
+          else if(this.order === 'b') return _.orderBy(this.allBangumis, 'score','desc');
+          else  return _.orderBy(this.allBangumis, 'star','desc');
+        }
         else{
-          // return this.bangumis[this.currentDay - 1].sort(this.compScore('score'));
-          // 这里数据还没渲染好，排不了序。
-          return this.sort_bangumis[this.currentDay - 1];
+          if(this.order === 'a') return this.bangumis[this.currentDay - 1];
+          else if(this.order === 'b'){
+            return _.orderBy(this.bangumis[this.currentDay - 1], 'score','desc')
+          }
+          else{
+            return _.orderBy(this.bangumis[this.currentDay - 1], 'star','desc')
+          }
         }
       }
     },
@@ -84,7 +103,6 @@
             // 数组解构
             this.allBangumis.push(...items)
             this.bangumis.push(items)
-            this.sort_bangumis.push(items.sort(this.compScore('score')))
           }
         })
       },
