@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 保存当前状态 -->
-    <keep-alive>
+    <keep-alive exclude="Favorites">
       <!-- 根据当前的路径，动态渲染出不同的组件. -->
       <router-view></router-view>
     </keep-alive>

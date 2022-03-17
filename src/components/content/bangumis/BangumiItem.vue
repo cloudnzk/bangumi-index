@@ -8,7 +8,7 @@
         show-error
         show-loading
       >  
-      <van-icon name="like" size="32" :badge="bangumiItem.star" color="#fff" class="star-icon"/>
+      <van-icon name="like" size="32" :badge="bangumiItem.star" color="#fff" class="star-icon" @click="starBangumi"/>
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
@@ -48,7 +48,7 @@
       }
     },
     computed: {
-      // 这里用了闭包传值，好好理解下！
+      // 这里用了闭包传值
       bangumiName(){
         return function(item){
           return item.name_cn.length === 0 ? item.name : item.name_cn
@@ -61,6 +61,11 @@
     methods: {
       bangumiScore(){
         return this.bangumiItem.score / 2;
+      },
+      starBangumi(){
+        // 第二个参数必须是字符串，所以先将对象转换成json
+        // localStorage.clear()
+        localStorage.setItem(this.bangumiItem.id,JSON.stringify(this.bangumiItem))
       }
     }
   }
