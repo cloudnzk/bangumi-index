@@ -18,8 +18,10 @@
         let starList = [];
         for(let i = 0; i < localStorage.length - 1; i++){
           let key = localStorage.key(i);
-          console.log(localStorage.getItem(key));
-          starList.push(JSON.parse(localStorage.getItem(key)));
+          // key是番组ID，才取
+          if((/^[0-9]+$/i).test(key)){
+            starList.push(JSON.parse(localStorage.getItem(key)));
+          }
         }
         return starList;
       }

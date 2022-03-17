@@ -60,6 +60,8 @@
       // 排序最好写在计算属性内
       orderBangumis(){
         if(this.currentDay === 0){
+          if(this.allBangumis.length === 0)  this.getWeekCalendar();
+
           if(this.order === 'a')  return this.allBangumis;
           else if(this.order === 'b') return _.orderBy(this.allBangumis, 'score','desc');
           else  return _.orderBy(this.allBangumis, 'star','desc');
@@ -73,7 +75,8 @@
             return _.orderBy(this.bangumis[this.currentDay - 1], 'star','desc')
           }
         }
-      }
+      },
+
     },
     created(){
       // 默认显示今天的番组
@@ -92,6 +95,9 @@
           // 保存请求过来的数据到 data 中
           for(let calendar of res.data){
             // 用一个map方法处理数组内每个item，抽出要展示的数据，再返回一个列表
+            /** 
+             * 优化：需要时再加载，不要一下子保存那么多。修改：先判断今天的是否保存，如果没保存就保存
+             */
             let items = calendar.items.map(item => {
               // 重新创建那么多对象对性能不好，试一下就地修改
               item.name = item.name_cn.length === 0 ? item.name : item.name_cn;
@@ -101,11 +107,16 @@
               // return new Calendar(item)
             })
             // 数组解构
-            this.allBangumis.push(...items)
+            // this.allBangumis.push(...items)
             this.bangumis.push(items)
           }
         })
       },
+
+      getWeekCalendar(){
+        for(let item of this.bangumis)  this.allBangumis.push(...item);
+      },
+
       /**
        * 排序方法
        */
@@ -122,6 +133,7 @@
       resetOrder(){
         this.order = 'a'
       },
+
       // 返回今天周几
       getCurrentDay(){
         let d = new Date().getDay()

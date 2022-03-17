@@ -8,7 +8,13 @@
         show-error
         show-loading
       >  
-      <van-icon name="like" size="32" :badge="bangumiItem.star" color="#fff" class="star-icon" @click="starBangumi"/>
+      <van-icon name="like" 
+        size="32" 
+        :badge="bangumiItem.star" 
+        class="star-icon" 
+        @click="starBangumi"
+        :class="{active: isStar}" 
+        ref="icon"/>
       </van-image>
       
       <!-- 要给标题一个宽度，不然会撑大盒子宽度 -->
@@ -44,7 +50,8 @@
     },
     data () {
       return {
-        value: 3,
+        value: 0,
+        isStar: false,
       }
     },
     computed: {
@@ -62,11 +69,19 @@
       bangumiScore(){
         return this.bangumiItem.score / 2;
       },
+
       starBangumi(){
         // 第二个参数必须是字符串，所以先将对象转换成json
         // localStorage.clear()
-        localStorage.setItem(this.bangumiItem.id,JSON.stringify(this.bangumiItem))
-      }
+        if(localStorage.getItem(this.bangumiItem.id)){
+          localStorage.removeItem(this.bangumiItem.id);
+          this.isStar = false;
+        }
+        else{
+          localStorage.setItem(this.bangumiItem.id,JSON.stringify(this.bangumiItem));
+          this.isStar = true;
+        }
+      },
     }
   }
 </script>
@@ -99,6 +114,10 @@
     /* 其实就是一行文字的高度，再往上偏移 */
     bottom: 0px;
     right: 14px;
+    color: #fff;
+  }
+  .active {
+    color: red;
   }
   .score {
     margin-right: 10px;
