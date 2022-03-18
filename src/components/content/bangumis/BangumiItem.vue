@@ -13,7 +13,7 @@
         :badge="bangumiItem.star" 
         class="star-icon" 
         @click="starBangumi"
-        :class="{active: isStar}" 
+        :class="star" 
         ref="icon"/>
       </van-image>
       
@@ -61,6 +61,12 @@
           return item.name_cn.length === 0 ? item.name : item.name_cn
         }
       },
+      star(){
+        if(localStorage.getItem(this.bangumiItem.id)) this.isStar = true;
+        return {
+          active: this.isStar
+        }
+      }
     },
     created() {
       this.value = this.bangumiScore()
