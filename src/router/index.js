@@ -5,7 +5,6 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('views/home/Home')
 const Category = () => import('views/category/Category')
-const Favorites = () => import('views/favorites/Favorites')
 
 // 1.安装路由插件
 Vue.use(VueRouter)
@@ -24,10 +23,6 @@ const routes = [
         path: '/category',
         component: Category
     },
-    {
-        path: '/favorites',
-        component: Favorites
-    }
 ]
 // 3.创建路由对象
 

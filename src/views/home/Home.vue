@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#0099FF" />
+    <!-- <van-search v-model="value" shape="round" placeholder="请输入搜索关键词" background="#0099FF" /> -->
     <van-dropdown-menu active-color="#1989fa">
       <van-dropdown-item v-model="currentDay" :options="option1" @change="resetOrder"/>
       <van-dropdown-item v-model="order" :options="option2"/>

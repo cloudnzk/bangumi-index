@@ -9,10 +9,9 @@
         show-loading
       >  
       <van-icon name="like" 
-        size="32" 
+        size="32"
         :badge="bangumiItem.star" 
         class="star-icon" 
-        @click="starBangumi"
         :class="star" 
         ref="icon"/>
       </van-image>
@@ -61,12 +60,6 @@
           return item.name_cn.length === 0 ? item.name : item.name_cn
         }
       },
-      star(){
-        if(localStorage.getItem(this.bangumiItem.id)) this.isStar = true;
-        return {
-          active: this.isStar
-        }
-      }
     },
     created() {
       this.value = this.bangumiScore()
@@ -74,19 +67,6 @@
     methods: {
       bangumiScore(){
         return this.bangumiItem.score / 2;
-      },
-
-      starBangumi(){
-        // 第二个参数必须是字符串，所以先将对象转换成json
-        // localStorage.clear()
-        if(localStorage.getItem(this.bangumiItem.id)){
-          localStorage.removeItem(this.bangumiItem.id);
-          this.isStar = false;
-        }
-        else{
-          localStorage.setItem(this.bangumiItem.id,JSON.stringify(this.bangumiItem));
-          this.isStar = true;
-        }
       },
     }
   }
